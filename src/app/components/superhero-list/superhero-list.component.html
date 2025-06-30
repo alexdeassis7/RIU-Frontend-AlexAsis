@@ -1,0 +1,105 @@
+<div class="list-container">
+  <mat-card class="list-card">
+    <div class="header">
+      <h2 class="title">Gestión de Superhéroes</h2>
+
+      <div class="filter-add">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Buscar héroe</mat-label>
+          <input
+            matInput
+            [(ngModel)]="filterText"
+            (input)="applyFilter()"
+            appUppercase
+            placeholder="Ej: Batman"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <button
+          mat-stroked-button
+          class="clear-button"
+          *ngIf="filterText"
+          (click)="clearFilter()"
+        >
+          <mat-icon>close</mat-icon>
+          Limpiar
+        </button>
+
+        <button mat-raised-button color="primary" (click)="add()">
+          <mat-icon>add</mat-icon>
+          Añadir
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isLoadingPage" class="loading-container" style="text-align:center; padding: 2rem;">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+
+    <div class="hero-list" *ngIf="!isLoadingPage">
+      <mat-card
+        class="hero-card"
+        *ngFor="let hero of displayedHeroes; trackBy: trackByHeroId"
+        [@fadeIn]
+      >
+        <div class="image-wrapper" style="position: relative; width: 120px; height: 120px; margin: 0 auto 15px;">
+          <mat-spinner
+            *ngIf="!imagesLoaded[hero.id]"
+            diameter="40"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"
+          ></mat-spinner>
+
+          <img
+            *ngIf="hero.imageUrl"
+            [src]="hero.imageUrl"
+            [alt]="hero.name"
+            class="hero-image"
+            (load)="onImageLoad(hero.id)"
+            [style.display]="imagesLoaded[hero.id] ? 'block' : 'none'"
+          />
+        </div>
+
+        <div class="hero-info">
+          <h3>{{ hero.name }}</h3>
+          <p>Poder: {{ hero.power }}</p>
+        </div>
+
+        <div class="hero-actions">
+          <button mat-icon-button color="accent" (click)="edit(hero.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(hero.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+
+      <div *ngIf="displayedHeroes.length === 0" class="no-results">
+        No se encontraron héroes con ese criterio.
+      </div>
+    </div>
+
+    <div class="pagination" *ngIf="!isLoadingPage && totalPages > 1">
+      <button mat-stroked-button (click)="previousPage()" [disabled]="page === 1">
+        <mat-icon>arrow_back</mat-icon>
+        Anterior
+      </button>
+
+      <span>Página {{ page }} de {{ totalPages }}</span>
+
+      <mat-form-field appearance="outline" class="page-size-selector">
+        <mat-label>Items por página</mat-label>
+        <mat-select [(ngModel)]="pageSize" (selectionChange)="applyFilter()">
+          <mat-option [value]="3">3</mat-option>
+          <mat-option [value]="6">6</mat-option>
+          <mat-option [value]="9">9</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-stroked-button (click)="nextPage()" [disabled]="page >= totalPages">
+        Siguiente
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

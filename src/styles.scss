@@ -1,0 +1,114 @@
+// ✅ Primero los @use (obligatorio en SCSS moderno)
+@use '@angular/material' as mat;
+@use 'sass:color';
+
+@include mat.core(); // necesario para los componentes
+
+// ✅ Luego importamos el tema predefinido de Angular Material
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// ✅ Estilos globales (canvas y cuerpo)
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: transparent;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#constellation-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+  background: transparent;
+}
+
+// ✅ Variables de color personalizadas
+$form-accent-color: #3f51b5;
+$form-warn-color: #f44336;
+$form-primary-color: #1976d2;
+
+// ✅ Estilos del formulario
+.page-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1;
+  background: transparent;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+}
+
+.list-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.input-wrapper {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.6rem;
+  justify-content: flex-end;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+  color: $form-accent-color;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-label {
+  font-size: 14px;
+}
+
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
