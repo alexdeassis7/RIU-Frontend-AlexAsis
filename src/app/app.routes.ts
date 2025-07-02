@@ -12,9 +12,6 @@ export const routes: Routes = [
   },
   { path: 'add', component: SuperheroFormComponent },
   { path: 'edit/:id', component: SuperheroFormComponent },
-
-  // ✅ Ruta especial para /edit sin ID
   { path: 'edit', component: MissingHeroComponent },
-
   { path: '**', redirectTo: '/' }
 ];

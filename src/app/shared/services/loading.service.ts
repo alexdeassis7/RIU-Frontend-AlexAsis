@@ -1,4 +1,3 @@
-// src/app/shared/services/loading.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,7 +9,7 @@ export class LoadingService {
   private hideTimeout: any;
 
   show(): void {
-    clearTimeout(this.hideTimeout); // cancela hide previo si hay
+    clearTimeout(this.hideTimeout);
     this._loading.next(true);
   }
 
