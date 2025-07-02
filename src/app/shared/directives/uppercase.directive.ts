@@ -7,8 +7,20 @@ import { Directive, HostListener, ElementRef } from '@angular/core';
 export class UppercaseDirective {
   constructor(private el: ElementRef<HTMLInputElement>) {}
 
-  @HostListener('input', ['$event.target'])
-  onInput(input: HTMLInputElement) {
-    input.value = input.value.toUpperCase();
+  @HostListener('input')
+  onInput() {
+    const input = this.el.nativeElement;
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    const uppercased = input.value.toUpperCase();
+    if (input.value !== uppercased) {
+      input.value = uppercased;
+
+      input.setSelectionRange(start, end);
+
+      const event = new Event('input', { bubbles: true });
+      input.dispatchEvent(event);
+    }
   }
 }
