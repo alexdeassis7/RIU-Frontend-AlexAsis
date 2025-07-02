@@ -2,58 +2,75 @@
   <div class="form-wrapper">
     <div class="list-card">
       <div class="header">
-        <h2 class="title">{{ editMode ? 'Editar Héroe' : 'Nuevo Héroe' }}</h2>
+        <h2 class="title">
+          @if (editMode) {
+            Editar Héroe
+          } @else {
+            Nuevo Héroe
+          }
+        </h2>
       </div>
 
-      <div
-        *ngIf="heroImageUrl"
-        class="image-wrapper"
-        style="position: relative; width: 120px; height: 120px; margin: 0 auto 1rem;"
-      >
-        <img
-          [src]="heroImageUrl"
-          alt="Héroe"
-          class="hero-image"
-          style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"
-        />
-      </div>
+      @if (heroImageUrl) {
+        <div
+          class="image-wrapper"
+          style="position: relative; width: 120px; height: 120px; margin: 0 auto 1rem;"
+        >
+          <img
+            [src]="heroImageUrl"
+            alt="Héroe"
+            class="hero-image"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"
+          />
+        </div>
+      }
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
         <div class="input-wrapper">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="name" appUppercase/>
-            <mat-error *ngIf="form.controls['name'].hasError('required')">
-              El nombre es obligatorio.
-            </mat-error>
-            <mat-error *ngIf="form.controls['name'].hasError('minlength')">
-              Mínimo 2 caracteres.
-            </mat-error>
-            <mat-error *ngIf="form.controls['name'].hasError('noNumbers')">
-              El nombre no puede contener números.
-            </mat-error>
+            <input matInput formControlName="name" appUppercase />
+            @if (form.controls['name'].hasError('required')) {
+              <mat-error>El nombre es obligatorio.</mat-error>
+            }
+            @if (form.controls['name'].hasError('minlength')) {
+              <mat-error>Mínimo 2 caracteres.</mat-error>
+            }
+            @if (form.controls['name'].hasError('noNumbers')) {
+              <mat-error>El nombre no puede contener números.</mat-error>
+            }
           </mat-form-field>
         </div>
 
         <div class="input-wrapper">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Poder</mat-label>
-            <input matInput formControlName="power" appUppercase/>
-            <mat-error *ngIf="form.controls['power'].hasError('required')">
-              El poder es obligatorio.
-            </mat-error>
-            <mat-error *ngIf="form.controls['power'].hasError('minlength')">
-              Mínimo 2 caracteres.
-            </mat-error>
-            <mat-error *ngIf="form.controls['power'].hasError('noNumbers')">
-              El poder no puede contener números.
-            </mat-error>
+            <input matInput formControlName="power" appUppercase />
+            @if (form.controls['power'].hasError('required')) {
+              <mat-error>El poder es obligatorio.</mat-error>
+            }
+            @if (form.controls['power'].hasError('minlength')) {
+              <mat-error>Mínimo 2 caracteres.</mat-error>
+            }
+            @if (form.controls['power'].hasError('noNumbers')) {
+              <mat-error>El poder no puede contener números.</mat-error>
+            }
           </mat-form-field>
         </div>
 
         <div class="button-group">
-          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="flex-grow-1">
-            {{ editMode ? 'Guardar Cambios' : 'Crear Héroe' }}
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid"
+            class="flex-grow-1"
+          >
+            @if (editMode) {
+              Guardar Cambios
+            } @else {
+              Crear Héroe
+            }
           </button>
           <button mat-stroked-button color="warn" type="button" (click)="cancel()">Cancelar</button>
         </div>

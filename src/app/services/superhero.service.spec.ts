@@ -50,7 +50,7 @@ describe('SuperHeroService', () => {
     };
 
     service.add(duplicateHero);
-    expect(service.heroes().length).toBe(initialLength); // no se agrega
+    expect(service.heroes().length).toBe(initialLength);
   });
 
   it('should update an existing hero', () => {
