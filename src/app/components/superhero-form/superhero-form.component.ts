@@ -8,11 +8,12 @@ import { SuperHeroService } from '../../services/superhero.service';
 import { SuperHero } from '../../models/superhero.model';
 import { noNumbersValidator } from '../../validators/no-numbers.validator';
 import { MaterialModule } from '../../shared/modules/material.module';
+import { UppercaseDirective } from '../../shared/directives/uppercase.directive';
 
 @Component({
   selector: 'app-superhero-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MaterialModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MaterialModule, UppercaseDirective],
   templateUrl: './superhero-form.component.html',
 })
 export class SuperheroFormComponent implements OnInit {

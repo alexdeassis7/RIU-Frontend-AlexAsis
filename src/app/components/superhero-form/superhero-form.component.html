@@ -22,7 +22,7 @@
         <div class="input-wrapper">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="name" />
+            <input matInput formControlName="name" appUppercase/>
             <mat-error *ngIf="form.controls['name'].hasError('required')">
               El nombre es obligatorio.
             </mat-error>
@@ -38,7 +38,7 @@
         <div class="input-wrapper">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Poder</mat-label>
-            <input matInput formControlName="power" />
+            <input matInput formControlName="power" appUppercase/>
             <mat-error *ngIf="form.controls['power'].hasError('required')">
               El poder es obligatorio.
             </mat-error>
